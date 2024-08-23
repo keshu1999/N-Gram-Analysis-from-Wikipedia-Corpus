@@ -1,0 +1,132 @@
+Name: KESHAV SHARMA
+Student ID: 2017A7PS0140P
+BITS Email: f20170140@pilani.bits-pilani.ac.in
+Wikipedia file used: AF/wiki_69
+
+Answer 1: 
+a) There are 85898 unique unigrams present in the corpus 
+b) The distribution plot is available in Image Graph_1.png
+c) 14780 unigrams are required to cover 90% of the corpus
+
+
+Answer 2:
+a) There are 619878 unique bigrams present in the corpus 
+b) The distribution plot is available in Image Graph_2.png
+c) 351323 bigrams are required to cover 80% of the corpus
+
+
+Answer 3:
+a) There are 1078932 unique trigrams present in the corpus
+b)The distribution plot is available in Image Graph_3.png
+c) 676098 trigrams are required to cover 70% of the corpus
+
+
+Answer 4:
+a) Unigram analysis after stemming
+  i) There are 61291 unique unigrams present in the stemmed corpus
+  ii) The distribution plot is available in Image Graph_4.png
+  iii) 6559 unigrams are required to cover 90% of the stemmed corpus
+
+b) Bigram analysis after stemming
+  i) There are 544686 unique bigrams present in the stemmed corpus
+  ii) The distribution plot is available in Image Graph_5.png
+  iii) 276130 bigrams are required to cover 80% of the stemmed corpus
+
+c) Trigram analysis after stemming
+  i) There are 1047817 unique trigrams present in the stemmed corpus
+  ii) The distribution plot is available in Image Graph_6.png
+  iii) 644983 trigrams are required to cover 70% of the stemmed corpus
+
+
+Answer 5:
+a) Unigram analysis after lemmatization
+  i) There are 81316 unique unigrams present in the lemmatized corpus
+  ii) The distribution plot is available in Image Graph_7.png
+  iii) 12709 unigrams are required to cover 90% of the lemmatized corpus
+
+b) Bigram analysis after lemmatization
+  i) There are 601264 unique bigrams present in the lemmatized corpus
+  ii) The distribution plot is available in Image Graph_8.png
+  iii) 332708 bigrams are required to cover 80% of the lemmatized corpus
+
+c) Trigram analysis after lemmatization
+  i) There are 1072186 unique trigrams present in the lemmatized corpus
+  ii) The distribution plot is available in Image Graph_9.png
+  iii) 669352 trigrams are required to cover 70% of the lemmatized corpus
+
+
+Answer 6:
+Zipf's law states that given a large sample of words used, the frequency of any word is inversely proportional to its rank in the frequency table. So word having rank n has a frequency proportional to 1/n. Since this is true, fn = c/n, where fn is the frequency of a word in the corpus and n its rank.
+Equivalently, we can write Zipf's law as fn = c/n or log(fn) = log c - log n, meaning that the graph of log(fn) and log n will be a striaght line having slope -1.
+After plotting the graph of natural logarithm of the rank of the word vs the natural logarithm of its frequency, we find that it approximates the line as predicted by Zipf's Law ( a line having slope -1) for words having small rank and deviate for large rank.
+For bigrams and trigrams, the Zipf curves do not follow straight lines and curve downwards. The average slope of the Zipf curve decreases from unigram to trigram. The slope of the bigram graph is nearly 0.66 and that of trigram is nearly 0.6. 
+
+
+Answer 7:
+1) Hyphens in between numbers and words such as '110-year-old' and '4-day' are tokenized as a single token but they should have been tokenized as '110' '-' 'year' '-' 'old' so that we get the correct frequency of the words 'year' and 'old'. Apart from that, 10-for-34, 2-heterosubstituted are also tokenized as a single token which is not right.
+
+2) "we're" is tokenized as "we" and "'re" as opposed to "we're" as we're is meaningful. Similarly a lot of words containing ' are tokenized incorrectly such as "Gold's", "4's", "Baker's", "I'm" etc.. are tokenized without 's and 'm. 
+
+3) Foreign languages are not tokenized properly by word_tokenize. For example, in the line 15970, 'mi forma de pensar...vestir' is tokenized as "'mi",  "forma",  "de",  "pensar",  "...", "vestir", "'". The presence of ' in 'mi is not correct. and should be tokenized as ', mi.  
+
+
+Answer 8:
+Tokenization: 
+I have used word_tokenize() from the nltk.tokenize library for tokenizing the text corpus. The word_tokenize() tokenizes a string to split off punctuation other than periods. This function returns a tokenized copy of text, using NLTK’s recommended word tokenizer which is currently an improved TreebankWordTokenizer along with PunktSentenceTokenizer for the specified language. 
+
+Stemming:
+I have used PorterStemmer() for stemming each token. The Porter Stemmer works by removing the commoner morphological, suffixes and inflexional endings from the tokens. It is an affix chopping algorithm. In simple words, it maps the word used to its root word. The underlying rule is that if a certain condition is satisfied, the replaces a suffix with another. Any word it encounters is divided as follows :
+C(VC)(VC)...(VC)V where (VC) occurs m times and
+C-strings of one or more consonants
+V-strings of one or more Vowels
+m-measure of the word.
+After dividing the word as follows, the PorterStemmer applies 5 sets of rules sequentially. The rules are typically of the form (condition) S1 -> S2 meaning that if a condition is met, the suffix S1 changes to suffix S2. The condition part can contain anything like Stem ending with S, measure of the stem, etc. After this a cleanup occurs. This is followed by 'Y' elimination, Derivational Morphology where new words are formed either by changing syntactic category or by adding substantial new meaning by adding suffixes and prefixes. A final cleanup ends the process of PorterStemmer.
+This is a very basic way to change the token as this doesn't use the context of the word.
+
+Lemmatization:
+I have used WordNetLemmatizer() lemmatizing algorithm. This, on receiving a word/token performs a lookup in the Word Net database. This is a lexical database which contains words into semantic relations such as to their synonyms, hyponyms, meronyms etc. Hence, this can be viewed as n extension of a dictionary or a thesaurus. This database provides a knowledge structure converting words into their morphological hierarchies and the looked-up value is the lemmatization of the token.   
+
+
+Answer 9:
+1) Numeric values such as 1,000,000, 100th and decimal values such as 15.4, 104.9 are tokenized as a single taken regardless of the fact that they contain full stop and comma. 
+
+2) The tool considers $2.6 million as 3 seperate tokens : '$', '2.6' and 'million' 
+
+3) $400k is tokenized as 2 tokens: '$' and '400k' and doesn't break 400k into 400 and k.
+
+Above two observationns show word_tokenize depends on the presence of whitespace characters and considers $ as a seperate token irrespective of whether there is a space between $ and the number.
+
+4) It considers '400-meter', '1-year', '18-month' and '612780-62797' as a single token
+
+5) Dates such as 16-6-2, 17-1-1, 1923-24 and 2002/2003 and considered as a single token.
+
+
+Answer 10:
+The top 20 bi-grams collocations in the text corpus obtained using the Chi-square test are :-
+1) Adult Contemporary'-influenced
+2) All-time Mustachioed
+3) Arab MiG-19
+4) Ayta Bani
+5) Benjamin Henniker
+6) Celtic Inscribed
+7) Channel TBC
+8) Conduct Unbecoming
+9) Deutschland sucht
+10) Did Saakashvili
+11) En Iniya
+12) Escuadra hacia
+13) Eurovíziós Dalfesztivál
+14) From Bouncing
+15) Gold Dagger
+16) Hakuro Nishiki
+17) Indian Sociologist
+18) Kalathil Uppot
+19) Kanne Kalaimaane
+20) Mini Mags
+
+
+References:
+Word_Tokenize, Stemming and Lemmatize : https://www.geeksforgeeks.org/ , https://www.guru99.com/stemming-lemmatization-python-nltk.html
+Chi-Square Analysis : http://alias-i.com/lingpipe/docs/api/com/aliasi/stats/Statistics.html#chiSquaredIndependence(double,%20double,%20double,%20double)
+WordNet Database: https://en.wikipedia.org/wiki/WordNet
+Zipf's Law : https://en.wikipedia.org/wiki/Zipf%27s_law
